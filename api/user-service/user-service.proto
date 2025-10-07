@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+package user_service;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/go-sso-example/user/pkg/user;user_service";
+
+service UserService {
+  rpc SellerRegister(RegisterRequest) returns (RegisterResponse) {
+    option (google.api.http) = {
+      get: "/register/seller"
+    };
+  }
+
+  rpc CustomerRegister(RegisterRequest) returns (RegisterResponse) {
+    option (google.api.http) = {
+      get: "/register/customer"
+    };
+  }
+
+  rpc VerifyEmail(VerifyEmailRequest) returns (VerifyEmailResponse) {
+    option (google.api.http) = {
+      get: "/verify"
+    };
+  }
+
+  rpc Login(LoginRequest) returns (LoginResponse) {
+    option (google.api.http) = {
+      get: "/login"
+    };
+  }
+
+  rpc GetUserRoles(GetUserRolesRequest) returns (GetUserRolesResponse) {
+    option (google.api.http) = {
+      get: "/user/{user_id}/roles"
+    };
+  }
+
+  rpc ListRoles(google.protobuf.Empty) returns (GetListRolesResponse) {
+    option (google.api.http) = {
+      get: "/roles"
+    };
+  }
+}
+
+message RegisterRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message RegisterResponse {
+  bool result = 1;
+}
+
+message VerifyEmailRequest {
+  string token = 1;
+}
+
+message VerifyEmailResponse {
+  bool result = 1;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  int64 user_id = 1 [json_name = "user_id"];
+  repeated Role roles = 2;
+}
+
+message Role {
+  string name = 1;
+}
+
+message GetUserRolesRequest {
+  int64 user_id = 1 [json_name = "user_id"];
+}
+
+message GetUserRolesResponse {
+  repeated Role roles = 1;
+}
+
+message GetListRolesResponse {
+  repeated Role roles = 1;
+}

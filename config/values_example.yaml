@@ -1,0 +1,26 @@
+# Postgresql db
+database:
+  name: ""
+  user: ""
+  password: ""
+  host: ""
+  port: ""
+  ssl_mode: ""
+  max_cons:
+  min_cons:
+  max_con_lifetime: ""
+
+# gRPC
+grpc:
+  port: ""
+  network: ""
+
+# HTTP
+http:
+  port: ""
+  host: ""
+  gracefulTimeout: ""
+
+# Verification email
+token:
+  exp: ""
